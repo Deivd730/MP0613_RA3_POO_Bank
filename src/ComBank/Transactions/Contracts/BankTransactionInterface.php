@@ -1,4 +1,6 @@
-<?php namespace ComBank\Transactions\Contracts;
+<?php
+
+namespace ComBank\Transactions\Contracts;
 
 /**
  * Created by VS Code.
@@ -10,7 +12,4 @@
 use ComBank\Bank\Contracts\BankAccountInterface;
 use ComBank\Exceptions\InvalidOverdraftFundsException;
 
-interface BankTransactionInterface
-{
-    
-}
+interface BankTransactionInterface {}

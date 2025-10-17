@@ -1,4 +1,6 @@
-<?php namespace ComBank\Transactions;
+<?php
+
+namespace ComBank\Transactions;
 
 /**
  * Created by VS Code.
@@ -11,7 +13,4 @@ use ComBank\Exceptions\InvalidArgsException;
 use ComBank\Exceptions\ZeroAmountException;
 use ComBank\Support\Traits\AmountValidationTrait;
 
-abstract class BaseTransaction
-{
-    
-}
+abstract class BaseTransaction {}

@@ -1,4 +1,6 @@
-<?php namespace ComBank\Transactions;
+<?php
+
+namespace ComBank\Transactions;
 
 /**
  * Created by VS Code.
@@ -10,9 +12,4 @@
 use ComBank\Bank\Contracts\BankAccountInterface;
 use ComBank\Transactions\Contracts\BankTransactionInterface;
 
-class DepositTransaction 
-{
-
-
-   
-}
+class DepositTransaction {}
