@@ -33,8 +33,9 @@ class BankAccount implements BankAccountInterface
     public function __construct(float $initialBalance = 0.0)
     {
         // initialize balance
-        $this->balance = $initialBalance;
         $this->status = BankAccountInterface::STATUS_OPEN;
+        $this->balance = $initialBalance;
+
     }
 
     public function transaction(BankTransactionInterface $bankTransaction): void
