@@ -12,4 +12,10 @@ namespace ComBank\Transactions\Contracts;
 use ComBank\Bank\Contracts\BankAccountInterface;
 use ComBank\Exceptions\InvalidOverdraftFundsException;
 
-interface BankTransactionInterface {}
+interface BankTransactionInterface
+{
+
+    public function applyTransaction(BankAccountInterface $bank_account_interface): float;
+    public function getTransactionInfo(): string;
+    public function getAmount(): float;
+}
