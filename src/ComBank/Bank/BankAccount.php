@@ -59,6 +59,9 @@ class BankAccount implements BankAccountInterface
 
     public function reopenAccount(): void
     {
+        if ($this->isOpen()) {
+            throw new BankAccountException("La cuenta ya esta habieta");
+        }
         $this->status = BankAccountInterface::STATUS_OPEN;
     }
     public function closeAccount(): void
