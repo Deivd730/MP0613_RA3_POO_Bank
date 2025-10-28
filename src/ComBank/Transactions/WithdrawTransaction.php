@@ -22,7 +22,13 @@ class WithdrawTransaction extends BaseTransaction implements BankTransactionInte
 
     public function applyTransaction(BankAccountInterface $bank_account_interface): float
     {
-        return $bank_account_interface->getBalance() - $this->getAmount();
+        // $newBalance = $bank_account_interface->getBalance() - $this->getAmount();
+        $newBalance = $bank_account_interface->getBalance() - $this->getAmount();
+
+        if (!$bank_account_interface->getOverdraft()->isGrantOverdraftFunds($newBalance)) {
+            throw new InvalidOverdraftFundsException('Your withdraw has reach the max overdraft funds.');
+        }
+        return $newBalance;
     }
 
     public function getTransactionInfo(): string

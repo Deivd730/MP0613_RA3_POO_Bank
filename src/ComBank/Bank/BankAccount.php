@@ -19,11 +19,13 @@ use ComBank\Exceptions\InvalidOverdraftFundsException;
 use ComBank\OverdraftStrategy\Contracts\OverdraftInterface;
 use ComBank\Support\Traits\AmountValidationTrait;
 use ComBank\Transactions\Contracts\BankTransactionInterface;
+use PHPUnit\Runner\InvalidOrderException;
 
 class BankAccount implements BankAccountInterface
 {
     private $balance;
     private $status;
+    private $overdraft;
 
 
     /**
@@ -35,6 +37,7 @@ class BankAccount implements BankAccountInterface
         // initialize balance
         $this->balance = $initialBalance;
         $this->status = BankAccountInterface::STATUS_OPEN;
+        $this->overdraft = new NoOverdraft();
     }
 
     public function transaction(BankTransactionInterface $bankTransaction): void
@@ -45,25 +48,38 @@ class BankAccount implements BankAccountInterface
             $newBalance = $bankTransaction->applyTransaction($this);
             $this->setBalance($newBalance);
         } catch (InvalidOverdraftFundsException $e) {
+            throw new FailedTransactionException("Erorr transaction: Insufficient balance to complete the withdrawal.", 0, $e);
         }
     }
 
-    public function isOpen()
+    public function isOpen(): bool
     {
-        $this->status = BankAccountInterface::STATUS_OPEN;
+        return $this->status == BankAccountInterface::STATUS_OPEN;
     }
 
-    public function reopenAccount()
+    public function reopenAccount(): void
     {
         $this->status = BankAccountInterface::STATUS_OPEN;
     }
-    public function closeAccount()
+    public function closeAccount(): void
     {
         $this->status = BankAccountInterface::STATUS_CLOSED;
     }
     public function getBalance(): float
     {
         return $this->balance;
+    }
+    public function getOverdraft(): OverdraftInterface
+    {
+        return $this->overdraft;
+    }
+
+    public function applyOverdraft(OverdraftInterface $overdraft): void
+    {
+        if (!$this->isOpen()) {
+        }
+
+        $this->overdraft = $overdraft;
     }
 
     public function setBalance(float $newBalance): void
