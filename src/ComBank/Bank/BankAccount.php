@@ -66,6 +66,7 @@ class BankAccount implements BankAccountInterface
     }
     public function closeAccount(): void
     {
+
         $this->status = BankAccountInterface::STATUS_CLOSED;
     }
     public function getBalance(): float
